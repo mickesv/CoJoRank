@@ -19,29 +19,29 @@
 ;;
 ;; <2019-09-09 Mon> Lists
 ;; [X] NSD-Nordic https://dbh.nsd.uib.no/publiseringskanaler/Forside
-;; [ ] GII-GRIN-SCIE Italian-Spanish http://gii-grin-scie-rating.scie.es/ratingSearch.jsf
+;; [WAIT] GII-GRIN-SCIE Italian-Spanish http://gii-grin-scie-rating.scie.es/ratingSearch.jsf
 ;; [ ] Core Journals http://portal.core.edu.au/jnl-ranks/
 ;; [ ] Core Conferences http://portal.core.edu.au/conf-ranks/
 ;; [ ] Gude2Research http://www.guide2research.com/topconf/
-;; [ ] ConferenceRanks http://www.conferenceranks.com/
+;; [WAIT] ConferenceRanks http://www.conferenceranks.com/  Wait with this, the data is from ERA 2010 and QUALIS 2012.
 ;; [ ] Scimagojr https://www.scimagojr.com/journalrank.php?type=p
 ;; [ ] Google Scholar https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_softwaresystems
 
 
 ;;; Code:
 (require 'url)
-(require 'libxml)
 
 (defconst cojorank-buffer-name "*CoJoRank*")
-(defvar cojorank-rank-list-list nil "List of (:name desriptive-name :function function-that-searches-rank-list :details text-description)")
-
-
-;; rank-lists
-(require 'cojorank-nsd)
-(require 'cojorank-gii-grin-scie)
+(defvar cojorank-rank-list-list nil "List of (desriptive-name function-that-searches-rank-list text-description)")
+(defvar cojorank-rank-list-functions '("cojorank-nsd.el"))
  
 ;; Generic functions
 ;; --------------------
+(defun cojorank-load-rank-lists ()
+  (interactive)
+  (mapc (lambda (list-name)
+          (load-file (expand-file-name list-name (file-name-directory (buffer-file-name)))))
+        cojorank-rank-list-functions))
 
 (defun cojorank-details (list-name)
   (interactive (list (completing-read "Name of List: " (mapcar (lambda (line) (car line)) cojorank-rank-list-list))))
@@ -53,13 +53,13 @@
     (insert (format "%s\n" (nth 2 elt)))))
 
 (defun cojorank-search (pubname)
-  (interactive "PPublication to search for: ")
+  (interactive "sPublication to search for: ")
   (let ((buf (get-buffer-create cojorank-buffer-name)))
     (switch-to-buffer buf)
     (goto-char (point-max))     
     (dolist (rank-list cojorank-rank-list-list)    
-      (insert (format "\nSearching for %s in %s..." pubname (car rank-list)))
-      (funcall (nth 2 rank-list)) pubname)))
+      (insert (format "\nSearching for %s in %s...\n" pubname (car rank-list)))
+      (funcall (nth 1 rank-list) pubname))))
 
 (provide 'cojorank)
 ;;; cojorank.el ends here

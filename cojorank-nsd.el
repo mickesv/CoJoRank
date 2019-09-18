@@ -3,7 +3,6 @@
 
 ;;; Code:
 (require 'url)
-(require 'libxml)
 
 (defun cojorank-NSD--parse-table (table)
   (let ((header (format "%4s\t%s" "Rank (3=top)" "Venue"))
@@ -40,7 +39,7 @@
                              ))))))))
 
 (add-to-list 'cojorank-rank-list-list '("NSD-Nordic"
-                                        'cojorank-NSD
+                                        cojorank-NSD
                                         "The Nordic List
 Published: 2019-05-14
 
@@ -53,3 +52,5 @@ NSD - Norwegian Centre for Research Data, have coordinated the technical develop
 The Nordic list consists of a bibliographic dataset on the publication channels listed in each countries national database. The national lists are joined technically which give superusers in all the countries a common source of information desirable from the perspective of resource efficiency and as a tool for the countries without a list. The list provides more information by updating the bibliographic data in the national databases and facilitates an overview of research output in the Nordic countries.
 
 The Nordic List application and database are hosted in a cloud solution and are available for the contributing stakeholders via a log in solution. The list supports publishers, series, journals and conferences, with associated data fields and OECD fields are added. The list also supports metadata unique to the Nordic list (registration dates, modification dates, history, comments etc.)"))
+
+(provide 'cojorank-nsd)
