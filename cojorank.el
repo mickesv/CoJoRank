@@ -58,8 +58,9 @@
     (switch-to-buffer buf)
     (goto-char (point-max))     
     (dolist (rank-list cojorank-rank-list-list)    
-      (insert (format "\nSearching for %s in %s...\n" pubname (car rank-list)))
+      ;; (insert (format "\nSearching for %s in %s...\n" pubname (car rank-list)))
       (funcall (nth 1 rank-list) pubname))))
 
 (provide 'cojorank)
 ;;; cojorank.el ends here
+

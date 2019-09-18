@@ -26,7 +26,7 @@
                          (save-excursion
                            (set-buffer ,buf)
                            (goto-char (point-max))
-                           (insert "Could not find any hits\n"))
+                           (insert (format "Could not find any hits in NSD Nordic for %s\n" ,pubname)))
                        (progn                           
                          (search-forward "<h3>Tidsskrifter/serier</h3>")
                          (search-forward "<tbody>")
@@ -35,6 +35,7 @@
                            (save-excursion
                              (set-buffer ,buf)
                              (goto-char (point-max))
+                             (insert (format "Searching in NSD Nordic for %s\n" ,pubname))
                              (insert (cojorank-NSD--parse-table table-meat))
                              ))))))))
 
