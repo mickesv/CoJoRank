@@ -22,7 +22,7 @@
 ;; [WAIT] GII-GRIN-SCIE Italian-Spanish http://gii-grin-scie-rating.scie.es/ratingSearch.jsf
 ;; [X] Core Journals http://portal.core.edu.au/jnl-ranks/
 ;; [X] Core Conferences http://portal.core.edu.au/conf-ranks/
-;; [ ] Gude2Research http://www.guide2research.com/topconf/
+;; [X] Gude2Research http://www.guide2research.com/topconf/
 ;; [WAIT] ConferenceRanks http://www.conferenceranks.com/  Wait with this, the data is from ERA 2010 and QUALIS 2012.
 ;; [ ] Scimagojr https://www.scimagojr.com/journalrank.php?type=p
 ;; [ ] Google Scholar https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_softwaresystems
@@ -33,7 +33,10 @@
 
 (defconst cojorank-buffer-name "*CoJoRank*")
 (defvar cojorank-rank-list-list nil "List of (desriptive-name function-that-searches-rank-list text-description)")
-(defvar cojorank-rank-list-functions '("cojorank-nsd.el" "cojorank-core-journals.el" "cojorank-core-conferences.el"))
+(defvar cojorank-rank-list-functions '("cojorank-nsd.el"
+                                       "cojorank-core-journals.el"
+                                       "cojorank-core-conferences.el"
+                                       "cojorank-guide2research.el"))
  
 (defun cojorank-load-rank-lists ()
   (interactive)
