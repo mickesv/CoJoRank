@@ -19,12 +19,12 @@
 ;;
 ;; <2019-09-09 Mon> Lists
 ;; [X] NSD-Nordic https://dbh.nsd.uib.no/publiseringskanaler/Forside
-;; [WAIT] GII-GRIN-SCIE Italian-Spanish http://gii-grin-scie-rating.scie.es/ratingSearch.jsf
+;; [X] GII-GRIN-SCIE Italian-Spanish http://gii-grin-scie-rating.scie.es/ratingSearch.jsf
 ;; [X] Core Journals http://portal.core.edu.au/jnl-ranks/
 ;; [X] Core Conferences http://portal.core.edu.au/conf-ranks/
 ;; [X] Gude2Research http://www.guide2research.com/topconf/
 ;; [WAIT] ConferenceRanks http://www.conferenceranks.com/  Wait with this, the data is from ERA 2010 and QUALIS 2012.
-;; [ ] Scimagojr https://www.scimagojr.com/journalrank.php?type=p
+;; [X] Scimagojr https://www.scimagojr.com/journalrank.php?type=p
 ;; [ ] Google Scholar https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_softwaresystems
 
 
@@ -33,20 +33,23 @@
 
 (defconst cojorank-buffer-name "*CoJoRank*")
 (defvar cojorank-rank-list-list nil "List of (desriptive-name function-that-searches-rank-list text-description)")
-(defvar cojorank-rank-list-functions '("cojorank-nsd.el"
+
+(defconst cojorank--directory (file-name-directory (or buffer-file-name load-file-name)))
+(defvar cojorank--rank-list-functions '("cojorank-nsd.el"
                                        "cojorank-core-journals.el"
                                        "cojorank-core-conferences.el"
-                                       "cojorank-guide2research.el"))
+                                       "cojorank-guide2research.el"
+                                       "cojorank-csv.el"))
  
-(defun cojorank-load-rank-lists ()
+(defun cojorank--load-rank-lists ()
   (interactive)
   (message "Loading Ranklist functions...")
   (mapc (lambda (list-name)
           (message "Loading %s..." list-name)
-          (load-file (expand-file-name list-name (file-name-directory (buffer-file-name)))))
-        cojorank-rank-list-functions))
+          (load-file (expand-file-name list-name cojorank--directory)))
+        cojorank--rank-list-functions))
 ;; And run it directly
-(cojorank-load-rank-lists)
+(cojorank--load-rank-lists)
 
 (defun cojorank-details (list-name)
   (interactive (list (completing-read "Name of List: " (mapcar (lambda (line) (car line)) cojorank-rank-list-list))))
@@ -59,7 +62,7 @@
 
 (defun cojorank-search (pubname)
   (interactive "sPublication to search for: ")
-  (unless cojorank-rank-list-list (cojorank-load-rank-lists))
+  (unless cojorank-rank-list-list (cojorank--load-rank-lists))
   (let ((buf (get-buffer-create cojorank-buffer-name)))
     (switch-to-buffer buf)
     (goto-char (point-max))
