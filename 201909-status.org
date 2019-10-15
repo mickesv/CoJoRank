@@ -1,0 +1,76 @@
+# #+Title: CoJoRank Status
+# #+Author: Mikael Svahnberg
+#+OPTIONS: email:t <:t todo:t f:t ':t H:2
+#+STARTUP: beamer
+
+#+LATEX_CLASS_OPTIONS: [10pt,t,a4paper]
+#+BEAMER_THEME: BTH_msv
+
+
+* Approach 0: Existing Lists
+- NSD-Nordic https://dbh.nsd.uib.no/publiseringskanaler/Forside
+- GII-GRIN-SCIE Italian-Spanish http://gii-grin-scie-rating.scie.es/ratingSearch.jsf
+- Core Journals http://portal.core.edu.au/jnl-ranks/
+- Core Conferences http://portal.core.edu.au/conf-ranks/
+- Gude2Research http://www.guide2research.com/topconf/
+- ConferenceRanks http://www.conferenceranks.com/
+- Scimagojr https://www.scimagojr.com/journalrank.php?type=p
+- Google Scholar https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_softwaresystems
+- Robert Feldt http://www.robertfeldt.net/advice/se_venues/
+
+
+- Aggregator: https://github.com/mickesv/CoJoRank
+* Challenges
+  - many lists are outdated
+    - CORE Journals is from 2010
+    - RFD not updated since 2014
+    - Guide2Research uses CORE and QUALIS2012
+    - GII-GRIN-SCIE Italian-Spanish aggregates from e.g. CORE
+  - agreement between lists?
+  - do we agree with their rankings?
+* crossroads
+
+Do we use existing rank-lists or a curated SERL-list
+
+* Suggestion
+t_0:
+ - use NSD-Nordic List
+   - It is active
+   - It is curated
+   - It lists Journals and Conferences published in a series (ISSN)
+ - Seeding Workshop
+   - search for favourite journal/conferences and check ranking to seed the SERL-rank-list.
+
+t_n:
+ - Need to Include Basis. When considering a venue:
+   1. Is it already SERL-ranked? (Do we still agree?)
+   2. If not, do we agree with the ranking from NSD-Nordic?
+   3. If yes, add to SERL-rank.
+   4. If no, collegial decision, add to SERL-rank.
+* Examples
+** Case 0
+0. [@0] A PhD Student wants to publish in "Journal of Software and Systems"
+1. Is it already SERL-ranked? =Yes=
+
+** Case 1
+0. [@0] A PhD Student wants to publish in "Journal of Psychology"
+1. Is it already SERL-ranked? =No=
+2. Does supervisor agree with NSD-Nordic rank/Is it ranked by NSD Nordic? =Yes=
+3. Add to SERL-Rank-list
+
+** Case 2
+0. [@0] A PhD Student wants to publish in "Journal of Clown Psychology"
+1. Is it already SERL-ranked? =No=
+2. Does supervisor agree with NSD-Nordic rank/Is it ranked by NSD Nordic? =No=
+3. Collegial decision, does everyone agree (or not actively disagree) with supervisors suggestion? =Yes=
+4. Add to SERL-Rank-list
+
+** Case 3
+0. [@0] A PhD Student wants to publish in "Journal of Esoteric Modelling"
+1. Is it already SERL-ranked? =No=
+2. Does supervisor agree with NSD-Nordic rank/Is it ranked by NSD Nordic? =No=
+3. Collegial decision, does everyone agree (or not actively disagree) with supervisors suggestion? =No consensus reached=
+4. Default to a ~B-level~ conference/journal. Add to SERL-Rank-list, note disagreement.
+
+
+
